@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andes Magazine — Artículo</title>
+<meta name="description" content="Artículo de Andes Magazine.">
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+<meta name="theme-color" content="#111110">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --stone: #111110;
+  --stone-2: #17171a;
+  --snow: #f2efe9;
+  --glacier: #b8c5cc;
+  --rock: #7a746b;
+  --rock-2: #5a554c;
+  --summit: #e8e4dc;
+  --accent: #1188A6;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.16);
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+
+  --pad: clamp(1.5rem, 4vw, 3rem);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--stone);
+  color: var(--snow);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+/* ─── GRAIN OVERLAY ─── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  z-index: 1000;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem var(--pad);
+  font-family: var(--sans);
+  background: linear-gradient(to bottom, rgba(17,17,16,0.85) 0%, rgba(17,17,16,0.5) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; text-decoration: none; color: #fff; }
+.nav-logo { display: block; height: 44px; width: auto; transition: opacity 0.3s; }
+.brand:hover .nav-logo { opacity: 0.85; }
+nav ul { list-style: none; display: flex; gap: 2.25rem; }
+nav a {
+  color: var(--snow); text-decoration: none;
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 400; opacity: 0.78;
+  transition: opacity 0.3s;
+}
+nav a:hover { opacity: 1; }
+
+/* ─── HEADER DEL ARTÍCULO ─── */
+.article-head {
+  padding: 9rem var(--pad) 3rem;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: left;
+}
+.breadcrumb {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rock);
+  margin-bottom: 2.5rem;
+  display: flex; gap: 0.75rem; align-items: center;
+}
+.breadcrumb a { color: var(--accent); text-decoration: none; transition: opacity 0.3s; }
+.breadcrumb a:hover { opacity: 0.75; }
+.breadcrumb .sep { color: var(--rock-2); }
+
+.article-cat {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.article-title {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 144, "SOFT" 40;
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--snow);
+  margin-bottom: 2rem;
+}
+.article-title em {
+  font-style: italic;
+  color: var(--glacier);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+}
+
+.article-excerpt {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 36, "SOFT" 60;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-weight: 350;
+  line-height: 1.45;
+  color: var(--summit);
+  max-width: 58ch;
+  margin-bottom: 2.5rem;
+}
+
+.article-byline {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rock);
+  display: flex; flex-wrap: wrap; gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.article-byline span:not(:last-child)::after {
+  content: '·'; margin-left: 1.5rem; color: var(--rock-2);
+}
+
+/* ─── IMAGEN PRINCIPAL ─── */
+.article-hero {
+  max-width: 1300px;
+  margin: 2rem auto 4rem;
+  padding: 0 var(--pad);
+}
+.article-hero img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+/* ─── CUERPO ─── */
+.article-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--pad) 6rem;
+}
+.article-body .block { margin-bottom: 1.75rem; }
+
+.article-body p {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 18, "SOFT" 50;
+  font-size: 1.15rem;
+  font-weight: 350;
+  line-height: 1.72;
+  color: var(--summit);
+  letter-spacing: 0.002em;
+}
+.article-body p em {
+  font-style: italic;
+  color: var(--glacier);
+  font-variation-settings: "opsz" 18, "SOFT" 100;
+}
+.article-body p strong {
+  font-weight: 500;
+  color: var(--snow);
+}
+.article-body p a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(17, 136, 166, 0.35);
+  transition: border-color 0.25s, color 0.25s;
+}
+.article-body p a:hover {
+  color: var(--snow);
+  border-bottom-color: var(--snow);
+}
+
+.article-body h2 {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 72, "SOFT" 40;
+  font-size: clamp(1.55rem, 2.6vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--snow);
+  margin: 3.5rem 0 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+/* Imágenes intermedias */
+.article-body .figure {
+  margin: 3rem 0;
+}
+.article-body .figure img {
+  width: 100%;
+  filter: brightness(0.9) contrast(1.05);
+}
+.article-body .figure figcaption {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rock);
+  margin-top: 1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  line-height: 1.55;
+}
+
+/* Citas */
+.article-body blockquote {
+  margin: 3rem 0;
+  padding: 1.5rem 0 1.5rem 2rem;
+  border-left: 2px solid var(--accent);
+}
+.article-body blockquote p {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 48, "SOFT" 100;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 350;
+  line-height: 1.35;
+  color: var(--snow);
+  letter-spacing: -0.005em;
+  margin-bottom: 1rem;
+}
+.article-body blockquote cite {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rock);
+}
+.article-body blockquote cite::before { content: '— '; color: var(--accent); }
+
+/* Links en bloque */
+.article-body .linkblock {
+  display: block;
+  margin: 2rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.article-body .linkblock:hover { color: var(--snow); }
+.article-body .linkblock::after { content: ' →'; }
+
+/* ─── NOT FOUND ─── */
+.not-found {
+  max-width: 720px;
+  margin: 9rem auto 6rem;
+  padding: 4rem var(--pad);
+  text-align: center;
+}
+.not-found h1 {
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 96, "SOFT" 40;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--snow);
+}
+.not-found p {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--summit);
+  margin-bottom: 2rem;
+}
+.not-found a {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--accent);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 4rem var(--pad) 2rem;
+  border-top: 1px solid var(--line);
+  background: var(--stone-2);
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rock-2);
+}
+.footer-bottom a { color: var(--rock-2); text-decoration: none; transition: color 0.3s; }
+.footer-bottom a:hover { color: var(--snow); }
+.footer-bottom .legal { display: flex; gap: 2rem; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 1rem 1.25rem; }
+  nav ul { display: none; }
+  .article-head { padding: 7rem 1.25rem 2rem; }
+  .article-hero { padding: 0 1.25rem; margin-bottom: 2.5rem; }
+  .article-body { padding: 0 1.25rem 4rem; }
+  .article-body p { font-size: 1.05rem; }
+  .article-body blockquote { padding-left: 1.25rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="index.html" class="brand">
+    <img src="assets/logo-andes.png" alt="Andes Magazine" class="nav-logo">
+  </a>
+  <ul>
+    <li><a href="category.html?cat=prensa">Prensa</a></li>
+    <li><a href="category.html?cat=cultura">Cultura</a></li>
+    <li><a href="category.html?cat=analisis">Análisis</a></li>
+    <li><a href="index.html#nosotros">Nosotros</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ CONTENIDO ═══ -->
+<main id="article-root"></main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Andes Magazine</span>
+    <div class="legal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="#">Ética editorial</a>
+    </div>
+    <span>Santiago de Chile</span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const root = document.getElementById('article-root');
+
+  // 1. Buscar artículo
+  const article = ARTICLES.find(a => a.id === id);
+
+  if (!article) {
+    root.innerHTML = `
+      <div class="not-found">
+        <h1>Artículo no encontrado</h1>
+        <p>El artículo que buscas no existe o fue movido.</p>
+        <a href="index.html">Volver al inicio</a>
+      </div>
+    `;
+    return;
+  }
+
+  const cat = CATEGORIES[article.category] || { title: article.category, slug: article.category };
+
+  // 2. Título del documento
+  document.title = `${article.title} — Andes Magazine`;
+
+  // 3. Renderizar cuerpo
+  const bodyHtml = (article.body || []).map(renderBlock).join('');
+
+  root.innerHTML = `
+    <header class="article-head">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span class="sep">/</span>
+        <a href="category.html?cat=${cat.slug}">${escapeHtml(cat.title)}</a>
+      </div>
+      <div class="article-cat">${escapeHtml(cat.title)} · ${escapeHtml(article.tag || '')}</div>
+      <h1 class="article-title">${escapeHtml(article.title)}</h1>
+      <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+      <div class="article-byline">
+        <span>${escapeHtml(article.author)}</span>
+        <span>${escapeHtml(article.date)}</span>
+        <span>${escapeHtml(article.readingTime)} de lectura</span>
+      </div>
+    </header>
+
+    <div class="article-hero">
+      <img src="${article.image}" alt="${escapeAttr(article.title)}">
+    </div>
+
+    <article class="article-body">
+      ${bodyHtml}
+    </article>
+  `;
+
+  // ─── Helpers ───────────────────────────────────────────────
+  function renderBlock(b) {
+    switch (b.type) {
+      case 'paragraph':
+        // HTML inline permitido (em, strong, a). Ver data.js.
+        return `<div class="block"><p>${b.text}</p></div>`;
+
+      case 'heading':
+        return `<div class="block"><h2>${escapeHtml(b.text)}</h2></div>`;
+
+      case 'image':
+        return `
+          <figure class="block figure">
+            <img src="${b.src}" alt="${escapeAttr(b.caption || '')}">
+            ${b.caption ? `<figcaption>${escapeHtml(b.caption)}</figcaption>` : ''}
+          </figure>
+        `;
+
+      case 'quote':
+        return `
+          <div class="block">
+            <blockquote>
+              <p>${escapeHtml(b.text)}</p>
+              ${b.cite ? `<cite>${escapeHtml(b.cite)}</cite>` : ''}
+            </blockquote>
+          </div>
+        `;
+
+      case 'link':
+        return `
+          <div class="block">
+            <a class="linkblock" href="${escapeAttr(b.href)}">${escapeHtml(b.text)}</a>
+          </div>
+        `;
+
+      default:
+        return '';
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+})();
+</script>
+</body>
+</html>

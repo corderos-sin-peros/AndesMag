@@ -931,49 +931,54 @@ footer {
 <!-- ═══ ÚLTIMAS NOTAS ═══ -->
 <section class="featured">
   <div class="section-label">Últimas notas</div>
-  <div class="editorial-grid">
-
-    <a class="editorial-main" href="article.html?id=mop-presupuesto-seguridad">
-      <img src="assets/images/embalse-cerrado.jpg" alt="">
-      <div class="editorial-main-content">
-        <div class="editorial-cat">Prensa · Entrevista</div>
-        <h3>Entre el presupuesto y la seguridad: el MOP sincera la realidad detrás del cierre de la montaña</h3>
-        <div class="editorial-byline">Simón Rodríguez · 8 min de lectura</div>
-      </div>
-    </a>
-
-    <div class="editorial-stack">
-
-      <a class="editorial-item" href="article.html?id=senapred-analfabetismo-montana">
-        <img src="assets/images/Derrumbes-embalse.jpg" alt="">
-        <div class="editorial-item-text">
-          <div class="editorial-cat">Prensa · Entrevista</div>
-          <h4>SENAPRED: la desigualdad comunal y el "analfabetismo de montaña" como grandes desafíos del acceso</h4>
-          <p>La cadena de decisión detrás de los cierres preventivos y la necesidad de instaurar una cultura de montaña.</p>
-        </div>
-      </a>
-
-      <a class="editorial-item" href="article.html?id=sernatur-sin-mando-unico">
-        <img src="assets/images/conaf-cerrado.png" alt="">
-        <div class="editorial-item-text">
-          <div class="editorial-cat">Prensa · Entrevista</div>
-          <h4>Sin un mando único y recursos acotados: el diagnóstico de SERNATUR sobre el cierre de caminos</h4>
-          <p>La desigualdad presupuestaria entre municipios y la falta de infraestructura habilitante.</p>
-        </div>
-      </a>
-
-      <a class="editorial-item" href="article.html?id=sur-morado-septima-ascension">
-        <img src="assets/images/morado-cumbre.jpg" alt="">
-        <div class="editorial-item-text">
-          <div class="editorial-cat">Cultura · Crónica</div>
-          <h4>La séptima de la Sur del Morado: crónica de una cuerda cortada</h4>
-          <p>Febrero de 2003. Una cuerda partida por una piedra y un vivac improvisado a 4.200 metros.</p>
-        </div>
-      </a>
-
-    </div>
-  </div>
+  <div class="editorial-grid" id="editorial-grid"></div>
 </section>
+ 
+<script src="data.js"></script>
+<script>
+(function () {
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c]);
+  }
+ 
+  const grid = document.getElementById('editorial-grid');
+  const latest = ARTICLES.slice(0, 4);
+  if (!latest.length) return;
+ 
+  const [main, ...stack] = latest;
+  const mainCat = CATEGORIES[main.category];
+ 
+  const mainHtml = `
+    <a class="editorial-main" href="article.html?id=${encodeURIComponent(main.id)}">
+      <img src="${main.image}" alt="${escapeHtml(main.title)}">
+      <div class="editorial-main-content">
+        <div class="editorial-cat">${escapeHtml(mainCat.title)} · ${escapeHtml(main.tag)}</div>
+        <h3>${escapeHtml(main.title)}</h3>
+        <div class="editorial-byline">${escapeHtml(main.author)} · ${escapeHtml(main.readingTime)} de lectura</div>
+      </div>
+    </a>`;
+ 
+  const stackHtml = `
+    <div class="editorial-stack">
+      ${stack.map(a => {
+        const cat = CATEGORIES[a.category];
+        return `
+        <a class="editorial-item" href="article.html?id=${encodeURIComponent(a.id)}">
+          <img src="${a.image}" alt="${escapeHtml(a.title)}">
+          <div class="editorial-item-text">
+            <div class="editorial-cat">${escapeHtml(cat.title)} · ${escapeHtml(a.tag)}</div>
+            <h4>${escapeHtml(a.title)}</h4>
+            <p>${escapeHtml(a.excerpt)}</p>
+          </div>
+        </a>`;
+      }).join('')}
+    </div>`;
+ 
+  grid.innerHTML = mainHtml + stackHtml;
+})();
+</script>
   
 <!-- ═══ NOSOTROS ═══ -->
 <section class="about" id="nosotros">

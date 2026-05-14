@@ -61,7 +61,7 @@ const ARTICLES = [
     category: 'prensa',
     title: 'SENAPRED: la desigualdad comunal y el "analfabetismo de montaña" como grandes desafíos del acceso',
     excerpt: 'El Director Regional Metropolitano de SENAPRED detalla la cadena de decisión detrás de los cierres preventivos, la desigualdad de recursos entre municipios y la necesidad de instaurar una cultura de montaña.',
-    image: 'assets/images/embalse-cerrado.jpg',
+    image: 'assets/images/zoom-embalse.jpg',
     author: 'Simón Rodríguez',
     date: '15 de abril, 2026',
     readingTime: '9 min',

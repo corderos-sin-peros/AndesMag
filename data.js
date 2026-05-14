@@ -133,7 +133,7 @@ const ARTICLES = [
     category: 'prensa',
     title: 'Entre el presupuesto y la seguridad: el MOP sincera la realidad detrás del cierre de la montaña',
     excerpt: 'Las autoridades regionales y provinciales de Vialidad del MOP explican los desafíos presupuestarios, el impacto del cambio climático y los protocolos que determinan el cierre preventivo de los caminos.',
-    image: 'assets/images/Derrumbes-embalse.png',
+    image: 'assets/images/Derrumbes-embalse.jpg',
     author: 'Simón Rodríguez',
     date: '10 de abril, 2026',
     readingTime: '8 min',

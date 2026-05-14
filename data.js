@@ -95,7 +95,7 @@ const ARTICLES = [
   {
     id: 'sernatur-sin-mando-unico',
     category: 'prensa',
-    title: 'Sin un mando único y recursos acotados: el diagnóstico de SERNATUR sobre el cierre de caminos',
+    title: 'Gobernanza fragmentada y déficit operacional: el diagnóstico de SERNATUR sobre los cierres de caminos',
     excerpt: 'El Director Regional Metropolitano de SERNATUR analiza cómo la desigualdad presupuestaria entre municipios y la falta de "infraestructura habilitante" impiden transformar los recursos naturales en destinos turísticos seguros.',
     image: 'assets/images/conaf-cerrado.png',
     author: 'Simón Rodríguez',
